@@ -1,38 +1,15 @@
 "use client";
 
-import CheckoutPage from "@/components/CheckoutPage";
-import convertToSubcurrency from "@/lib/convertToSubcurrency";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
-
-if (process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY === undefined) {
-  throw new Error("NEXT_PUBLIC_STRIPE_PUBLIC_KEY is not defined");
-}
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
-
 export default function Home() {
-  const amount = 49.99;
-
   return (
-    <main className="max-w-6xl mx-auto p-10 text-white text-center border m-10 rounded-md bg-gradient-to-tr from-blue-500 to-purple-500">
-      <div className="mb-10">
-        <h1 className="text-4xl font-extrabold mb-2">Sonny</h1>
-        <h2 className="text-2xl">
-          has requested
-          <span className="font-bold"> ${amount}</span>
-        </h2>
-      </div>
-
-      <Elements
-        stripe={stripePromise}
-        options={{
-          mode: "payment",
-          amount: convertToSubcurrency(amount),
-          currency: "usd",
-        }}
+    <main className="flex min-h-screen flex-col items-center justify-center p-24 gap-4">
+      <h1>Stripe Payments</h1>
+      <a
+        href="https://buy.stripe.com/test_5kAdT1fIq59faWc9AA"
+        className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded"
       >
-        <CheckoutPage amount={amount} />
-      </Elements>
+        Buy Now
+      </a>
     </main>
   );
 }
